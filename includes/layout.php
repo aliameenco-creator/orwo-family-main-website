@@ -27,6 +27,8 @@ function orwo_theme_part( $name, $return = false ) {
     $file = orwo_part_file( $name );
     if ( ! $file ) { return ''; }
     $html = orwo_theme_fragment( (string) file_get_contents( $file ) );
+    // Copyright year is always the current year (never a stale year copied from the old site).
+    $html = str_replace( '<!--orwo:year-->', esc_html( wp_date( 'Y' ) ), $html );
     if ( $return ) { return $html; }
     echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Generated theme HTML, not user input.
     return '';

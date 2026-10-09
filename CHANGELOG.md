@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2 — 2026-10-09
+
+- Footer copyright now always shows the current year (2026), updated automatically every year instead of the old site's fixed "2025".
+
 ## 0.2.1 — 2026-10-09
 
 - Fixed the page being wider than the screen on narrower phones (about 375px and below, e.g. iPhone SE and many Android phones): the footer columns no longer force extra width, and the page can never scroll sideways.
