@@ -21,7 +21,9 @@ function orwo_seo_plugin_active() {
 
 function orwo_route_url( $route ) {
     $paths = array( 'home' => '/', 'contact' => '/contact', 'cookie-policy' => '/pages/cookie-policy' );
-    return home_url( $paths[ $route ] ?? '/' );
+    $path = $paths[ $route ] ?? '/';
+    // Match the address WordPress actually serves (trailing slash per the permalink setting), so canonical never points at a redirect.
+    return '/' === $path ? home_url( '/' ) : home_url( user_trailingslashit( $path ) );
 }
 
 add_filter( 'pre_get_document_title', function ( $title ) {
@@ -56,8 +58,8 @@ add_action( 'init', function () {
         public function __construct() { $this->name = 'orwo'; $this->object_type = 'orwo'; }
         public function get_url_list( $page_num, $object_subtype = '' ) {
             $urls = array( array( 'loc' => home_url( '/' ) ) );
-            if ( ! get_page_by_path( 'contact' ) ) { $urls[] = array( 'loc' => home_url( '/contact' ) ); }
-            $urls[] = array( 'loc' => home_url( '/pages/cookie-policy' ) );
+            if ( ! get_page_by_path( 'contact' ) ) { $urls[] = array( 'loc' => orwo_route_url( 'contact' ) ); }
+            $urls[] = array( 'loc' => orwo_route_url( 'cookie-policy' ) );
             return $urls;
         }
         public function get_max_num_pages( $object_subtype = '' ) { return 1; }

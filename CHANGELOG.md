@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0 — 2026-10-09
+
+Design refinement after the first review on the live site.
+
+- Phone menu fixed: it now always opens as a full black screen under the header, also after scrolling (the header's blur effect was trapping the menu panel).
+- Black throughout, with lighter, quieter typography (Roboto 200–400, no heavy condensed bold).
+- Clients now appear right under the numbers as a moving strip of white logos on black (replacing the text ticker).
+- The ORWO Family companies are shown as 26 large individual logos (cut from the original collage) instead of one small image.
+- Images move into the WordPress Media Library with one click (Complete ORWO Family setup): descriptive file names and alt text for SEO, responsive image sizes, and alt text you edit in the Media Library is used on the website. Re-running is safe and never creates duplicates.
+- Phones: parallax switched off for smoother scrolling, larger tap targets, refined two-column layouts.
+
 ## 0.1.0 — 2026-10-09
 
 First release of the ORWO Family theme, built from the archived orwo.family (Strikingly) site.

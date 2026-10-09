@@ -2,6 +2,8 @@
 (() => {
   const d = document;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Parallax only on larger screens: phones scroll smoother without it.
+  const wide = window.matchMedia('(min-width: 768px)');
   const header = d.querySelector('[data-header]');
   const bar = d.querySelector('[data-progress]');
   const adminBar = d.getElementById('wpadminbar');
@@ -24,7 +26,7 @@
       const max = d.documentElement.scrollHeight - vh;
       bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
     }
-    if (reduce) return;
+    if (reduce || !wide.matches) return;
     if (heroPhoto && y < vh * 1.2) heroPhoto.style.translate = '0 ' + (y * 0.28).toFixed(1) + 'px';
     parallax.forEach((el) => {
       const r = el.getBoundingClientRect();

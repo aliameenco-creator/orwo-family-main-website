@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /** Resolve our controlled /assets/ tokens and root-relative links, on any (sub)directory install. */
 function orwo_theme_fragment( $html ) {
+    $html = orwo_media_swap( $html );
     $html = preg_replace_callback( '~(src|href)="(/assets/[^"<>]+)"~', function ( $m ) {
         return $m[1] . '="' . esc_url( get_theme_file_uri( ltrim( $m[2], '/' ) ) ) . '"';
     }, $html );
@@ -31,12 +32,13 @@ function orwo_theme_part( $name, $return = false ) {
     return '';
 }
 
-/** Page hero: breadcrumb, title and the original hero photograph. */
+/** Page hero: breadcrumb, title and the original hero photograph (from the Media Library once imported). */
 function orwo_page_hero( $title, $trail = '' ) {
     $file = get_theme_file_path( 'parts/page-hero.txt' );
-    $image = is_readable( $file ) ? get_theme_file_uri( ltrim( trim( (string) file_get_contents( $file ) ), '/' ) ) : '';
-    $style = $image ? ' style="background-image:url(' . esc_url( $image ) . ')"' : '';
-    echo '<section class="inner-hero"' . $style . '><div class="grain" aria-hidden="true"></div><div class="wrap"><div class="crumb"><a href="' . esc_url( home_url( '/' ) ) . '">Home</a>' . ( $trail ? ' / ' . esc_html( $trail ) : '' ) . '</div><h1 class="reveal-title">' . esc_html( $title ) . '</h1></div></section>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above.
+    $image = is_readable( $file ) ? trim( (string) file_get_contents( $file ) ) : '';
+    $style = preg_match( '~^/assets/[a-z0-9/._-]+$~', $image ) ? ' style="background-image:url(' . $image . ')"' : '';
+    $html = '<section class="inner-hero"' . $style . '><div class="grain" aria-hidden="true"></div><div class="wrap"><div class="crumb"><a href="/">Home</a>' . ( $trail ? ' / ' . esc_html( $trail ) : '' ) . '</div><h1 class="reveal-title">' . esc_html( $title ) . '</h1></div></section>';
+    echo orwo_theme_fragment( $html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above; fixed theme tokens.
 }
 
 /** Request path relative to the site root, e.g. "contact" or "pages/cookie-policy". */

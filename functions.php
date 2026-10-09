@@ -3,6 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 require_once __DIR__ . '/includes/github-updater.php';
 require_once __DIR__ . '/includes/layout.php';
+require_once __DIR__ . '/includes/media.php';
 require_once __DIR__ . '/includes/setup.php';
 require_once __DIR__ . '/includes/seo.php';
 require_once __DIR__ . '/includes/contact-form.php';
