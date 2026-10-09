@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 — 2026-10-09
+
+- Fixed the page being wider than the screen on narrower phones (about 375px and below, e.g. iPhone SE and many Android phones): the footer columns no longer force extra width, and the page can never scroll sideways.
+- Removed the scroll-mouse icon from the bottom of the hero.
+
 ## 0.2.0 — 2026-10-09
 
 Design refinement after the first review on the live site.
